@@ -1,0 +1,125 @@
+* [首页](https://www.coderjia.cn/)
+* [更新动态](https://www.coderjia.cn/moments)
+* [分类](https://www.coderjia.cn/categories)
+* [归档](https://www.coderjia.cn/archives)
+* [标签](https://www.coderjia.cn/tags)
+* [分享](https://www.coderjia.cn/links)
+* [关于](https://www.coderjia.cn/about)
+  * [首页](https://www.coderjia.cn/)
+  * [更新动态](https://www.coderjia.cn/moments)
+  * [分类](https://www.coderjia.cn/categories)
+  * [归档](https://www.coderjia.cn/archives)
+  * [标签](https://www.coderjia.cn/tags)
+  * [分享](https://www.coderjia.cn/links)
+  * [关于](https://www.coderjia.cn/about)
+
+
+## 目前国内可用Docker镜像源汇总（截至2025年3月）
+CoderJia 205558 2024-08-09 
+在国内使用 Docker 的朋友们，可能都遇到过配置镜像源来加速镜像拉取的操作。然而，最近几个月发现许多曾经常用的国内镜像站（包括各种云服务商和高校镜像站）已经无法使用。因此，本人开始搜索并汇总了目前可用的镜像站和镜像加速地址，并计划定期测试它们的可用性，并更新这个列表。如果您知道新的可用站点，也欢迎随时补充哦！
+# Docker 镜像加速列表（20250320已更新）
+> 请注意！有些镜像站仅提供基础镜像或白名单镜像，如果某个加速地址无法拉取到所需的镜像，可以尝试切换到其他地址。有些代理站点是热心网友自费搭建的，请务必合理使用。如果侵犯了您的权益，请随时联系我，我会及时删除相关信息。感谢您的理解与支持！
+DockerHub 镜像仓库| 是否正常  
+---|---  
+`hub.fast360.xyz`| 正常  
+`hub.rat.dev`| 正常  
+`hub.littlediary.cn`| 正常  
+`docker.kejilion.pro`| 正常  
+`dockerpull.cn`| 正常  
+`docker-0.unsee.tech`| 正常  
+`docker.tbedu.top`| 正常  
+`docker.1panelproxy.com`| 正常  
+`docker.melikeme.cn`| 正常  
+`cr.laoyou.ip-ddns.com`| 正常  
+`hub.firefly.store`| 正常  
+`docker.hlmirror.com`| 正常  
+`docker.m.daocloud.io`| 正常  
+`docker.1panel.live`| 正常  
+`image.cloudlayer.icu`| 正常  
+`docker.1ms.run`| 新增  
+`docker.hpcloud.cloud`| 失效  
+`doublezonline.cloud`| 失效  
+`hub.crdz.gq`| 失效  
+`ccr.ccs.tencentyun.com`| 失效  
+`freeno.xyz`| 失效  
+`hub.xdark.top`| 失效  
+`dislabaiot.xyz`| 失效  
+`docker.linkedbus.com`| 失效  
+`noohub.ru`| 失效  
+`docker.nastool.de`| 失效  
+`docker.udayun.com`| 失效  
+`dockerpull.com`| 失效  
+`docker.hlyun.org`| 失效  
+`docker.nat.tf`| 失效  
+`docker.rainbond.cc`| 失效  
+`docker.wget.at`| 失效  
+`hub.docker-ttc.xyz`| 失效  
+`dockerpull.org`| 失效  
+`docker.chenby.cn`| 失效  
+`atomhub.openatom.cn`| 失效  
+`dockerproxy.github.io`| 失效  
+`lynn520.xyz`| 失效  
+`pull.loridocker.com`| 失效  
+`hub.yuzuha.cc`| 失效  
+`hub.geekery.cn`| 失效  
+`cjie.eu.org`| 失效  
+`docker.imgdb.de`| 失效  
+`dhub.kubesre.xyz`| 失效  
+`ginger20240704.asia`| 失效  
+`registry.dockermirror.com`| 失效  
+`docker.mrxn.net`| 失效  
+# 配置方式1：临时使用
+直接使用，直接拿镜像域名拼接上官方镜像名，例如要拉去镜像 `istio/distroless`，可以用下面写法（不要带 `https://`）
+```
+docker pull docker-0.unsee.tech/istio/distroless
+复制
+```
+
+# 配置方式2：长久有效
+> Ubuntu 16.04+、Debian 8+、CentOS 7+
+修改文件 `/etc/docker/daemon.json`（如果不存在则需要创建创建，注意不要写入中文，要带 `https://`），并重启服务。
+```
+# 创建目录  
+---  
+sudo mkdir -p /etc/docker  
+# 写入配置文件  
+sudo tee /etc/docker/daemon.json <<-'EOF'  
+{  
+  "registry-mirrors": [  
+  	"https://docker-0.unsee.tech",  
+    "https://docker-cf.registry.cyou",  
+    "https://docker.1panel.live"  
+  ]  
+}  
+EOF  
+# 重启docker服务  
+sudo systemctl daemon-reload && sudo systemctl restart docker  
+复制
+```
+
+可直接使用 `docker pull`拉去镜像进行测试：
+![](https://www.coderjia.cn/themes/theme-xue/assets/assets/images/loading.gif)
+或用以下命令检查是否生效：
+```
+ping -c 3 docker-0.unsee.tech
+复制
+```
+
+![](https://www.coderjia.cn/themes/theme-xue/assets/assets/images/loading.gif)
+[ Docker  ](https://www.coderjia.cn/tags/docker "Docker")
+[ ](javascript:void\(0\); "复制文章链接") [ ](http://service.weibo.com/share/share.php?sharesource=weibo&title=分享：%E7%9B%AE%E5%89%8D%E5%9B%BD%E5%86%85%E5%8F%AF%E7%94%A8Docker%E9%95%9C%E5%83%8F%E6%BA%90%E6%B1%87%E6%80%BB%EF%BC%88%E6%88%AA%E8%87%B32025%E5%B9%B43%E6%9C%88%EF%BC%89，原文链接：/archives/dba3f94c-a021-468a-8ac6-e840f85867ea&pic= "分享到新浪微博") [ ](https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=/archives/dba3f94c-a021-468a-8ac6-e840f85867ea&sharesource=qzone&title=%E7%9B%AE%E5%89%8D%E5%9B%BD%E5%86%85%E5%8F%AF%E7%94%A8Docker%E9%95%9C%E5%83%8F%E6%BA%90%E6%B1%87%E6%80%BB%EF%BC%88%E6%88%AA%E8%87%B32025%E5%B9%B43%E6%9C%88%EF%BC%89&pics=$ "分享到QQ空间") [ ](https://connect.qq.com/widget/shareqq/index.html?url=/archives/dba3f94c-a021-468a-8ac6-e840f85867ea&title=%E7%9B%AE%E5%89%8D%E5%9B%BD%E5%86%85%E5%8F%AF%E7%94%A8Docker%E9%95%9C%E5%83%8F%E6%BA%90%E6%B1%87%E6%80%BB%EF%BC%88%E6%88%AA%E8%87%B32025%E5%B9%B43%E6%9C%88%EF%BC%89&pics= "分享到QQ")
+  1. [Docker 镜像加速列表（20250320已更新）](https://www.coderjia.cn/archives/dba3f94c-a021-468a-8ac6-e840f85867ea#docker-镜像加速列表20250320已更新)
+  2. [配置方式1：临时使用](https://www.coderjia.cn/archives/dba3f94c-a021-468a-8ac6-e840f85867ea#配置方式1临时使用)
+  3. [配置方式2：长久有效](https://www.coderjia.cn/archives/dba3f94c-a021-468a-8ac6-e840f85867ea#配置方式2长久有效)
+
+
+上一篇 
+####  无 
+下一篇 
+#### KrillinAI：基于AI大模型的一站式视频翻译配音解决方案
+[](https://www.coderjia.cn/archives/2e14f373-d42d-46c4-b89c-670462af6b38)
+[ ](https://www.coderjia.cn/rss.xml "RSS") [ ](https://www.zhihu.com/people/CoderJia "知乎")
+[浙ICP备2023017869号](http://beian.miit.gov.cn)
+[ 运行 ](javascript:void\(0\))
+[ 用户 124898 ](javascript:void\(0\))
+[ 访问 208294 ](javascript:void\(0\))
